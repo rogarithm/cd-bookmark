@@ -1,8 +1,13 @@
 #!/usr/bin/env bash
 BOOKMARK_DIR='/Users/sehun/tools/assistant/cd_bookmarks'
+USAGE='Usage: cdb [-c|-g|-d|-l] [bookmark]
+-c: create bookmark
+-g: goto bookmark
+-d: delete bookmark
+-l: list bookmarks'
 
 function cdb() {
-	USAGE="Usage: cdb [-c|-g|-d|-l] [bookmark]" ;
+
 	if  [ ! -e ${BOOKMARK_DIR} ] ; then
 		mkdir ${BOOKMARK_DIR}
 	fi
