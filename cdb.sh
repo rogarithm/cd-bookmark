@@ -21,14 +21,6 @@ function cdb() {
 			echo "Try again! Looks like there is already a bookmark '$1'"
 		fi
 		;;
-		# goto bookmark
-		-g) shift
-		if [ -f ${BOOKMARK_DIR}/$1 ] ; then
-			source ${BOOKMARK_DIR}/"$1"
-		else
-			echo "Looks like your bookmark does not exist." ;
-		fi
-		;;
 		# delete bookmark
 		-d) shift
 		if [ -f ${BOOKMARK_DIR}/$1 ] ; then
@@ -45,7 +37,17 @@ function cdb() {
 			echo "${file}: $(cat ${file})"
 		done
 		;;
-	  *) echo "$USAGE" ;
+		# help
+		-h) shift
+		echo "$USAGE" ;
+		;;
+		# goto bookmark
+		*)
+		if [ -f ${BOOKMARK_DIR}/$1 ] ; then
+			source ${BOOKMARK_DIR}/"$1"
+		else
+			echo "Looks like your bookmark does not exist." ;
+		fi
 		;;
 esac
 }
