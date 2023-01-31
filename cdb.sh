@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 function cdb() {
-	local bookmark_dir='/Users/sehun/tools/assistant/.cd_bookmarks'
+	local bookmark_db='/Users/sehun/tools/assistant/.cd_bookmarks'
+	local tmp_file='/tmp/tmpfile'
 	local usage='Usage: cdb [-c|-g|-d|-l] [bookmark]
 	-c: create bookmark
 	-g: goto bookmark
@@ -8,34 +9,32 @@ function cdb() {
 	-l: list bookmarks'
 
 
-	if  [ ! -e ${bookmark_dir} ] ; then
-		mkdir ${bookmark_dir}
+	if  [ ! -e ${bookmark_db} ] ; then
+		touch ${bookmark_db}
 	fi
+	# echo ":$(grep $1 ${bookmark_db}):"
 
 	case $1 in
 		# create bookmark
 		-c) shift
-		if [ ! -f ${bookmark_dir}/$1 ] ; then
-			echo "cd `pwd`" > ${bookmark_dir}/"$1" ;
+		if [ -z $(grep $1 ${bookmark_db}) ] ; then
+			echo "${1}:$(pwd)" >> ${bookmark_db} ;
 		else
 			echo "Try again! Looks like there is already a bookmark '$1'"
 		fi
 		;;
 		# delete bookmark
 		-d) shift
-		if [ -f ${bookmark_dir}/$1 ] ; then
-			rm ${bookmark_dir}/"$1" ;
+		if [ -n $(grep $1 ${bookmark_db}) ] ; then
+			grep -v "^${1}" ${bookmark_db} > ${tmp_file}
+			cat ${tmp_file} > ${bookmark_db} ;
 		else
 			echo "Oops, forgot to specify the bookmark" ;
 		fi    
 		;;
 		# list bookmarks
 		-l) shift
-		cd ${bookmark_dir}/ ;
-		for file in $(ls)
-		do
-			echo "${file}: $(cat ${file})"
-		done
+		cat ${bookmark_db}
 		;;
 		# help
 		-h) shift
@@ -43,8 +42,9 @@ function cdb() {
 		;;
 		# goto bookmark
 		*)
-		if [ -f ${bookmark_dir}/$1 ] ; then
-			source ${bookmark_dir}/"$1"
+		if [ -n $1 ] ; then
+			echo $(grep $1 ${bookmark_db} | sed "s/^${1}://") > ${tmp_file}
+			cd $(cat ${tmp_file}) ;
 		else
 			echo "Looks like your bookmark does not exist." ;
 		fi
