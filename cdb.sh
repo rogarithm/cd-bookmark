@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 function cdb() {
-	local bookmark_db='/Users/sehun/tools/assistant/.cd_bookmarks'
+	local bookmark_db='/Users/sehun/tools/cdb/.cd_bookmarks'
 	local tmp_file='/tmp/tmpfile'
 	local usage='Usage: cdb [-c|-g|-d|-l] [bookmark]
 	-c: create bookmark
