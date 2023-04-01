@@ -17,7 +17,7 @@ function cdb() {
 	case $1 in
 		# create bookmark
 		-c) shift
-		if [ -z $(grep $1 ${bookmark_db}) ] ; then
+		if [ -z $(grep "^${1}:" ${bookmark_db}) ] ; then
 			echo "${1}:$(pwd)" >> ${bookmark_db} ;
 		else
 			echo "Try again! Looks like there is already a bookmark '$1'"
@@ -25,8 +25,8 @@ function cdb() {
 		;;
 		# delete bookmark
 		-d) shift
-		if [ -n $(grep $1 ${bookmark_db}) ] ; then
-			grep -v "^${1}" ${bookmark_db} > ${tmp_file}
+		if [ -n $(grep "^${1}:" ${bookmark_db}) ] ; then
+			grep -v "^${1}:" ${bookmark_db} > ${tmp_file}
 			cat ${tmp_file} > ${bookmark_db} ;
 		else
 			echo "Oops, forgot to specify the bookmark" ;
@@ -43,7 +43,7 @@ function cdb() {
 		# goto bookmark
 		*)
 		if [ -n $1 ] ; then
-			echo $(grep $1 ${bookmark_db} | sed "s/^${1}://") > ${tmp_file}
+			echo $(grep "^${1}:" ${bookmark_db} | sed "s/^${1}://") > ${tmp_file}
 			cd $(cat ${tmp_file}) ;
 		else
 			echo "Looks like your bookmark does not exist." ;
