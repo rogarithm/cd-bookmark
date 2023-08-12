@@ -9,7 +9,14 @@ describe "Bookmarker", "operations" do
   it "should throw an exception if a bookmark to create is already created"
   it "should delete bookmark if given option is -d"
   it "should throw an exception if you did not specify a bookmark to delete"
-  it "should list bookmark if given option is -l"
+  it "should list bookmark satisfying regex" do
+    bmk = Bookmarker.new
+    bookmarks= bmk.list_bookmarks
+    bookmarks.each do |bookmark|
+      bookmark.split(":").first.should match /\S+/
+      bookmark.split(":").last.should match /\S+/
+    end
+  end
   it "should show simple help document -h" do
     bmk = Bookmarker.new
     bmk.show_help_msg.should == <<-END_OF_MSG
