@@ -1,6 +1,9 @@
 require_relative '../lib/cdb/bookmarker'
 
 describe "Bookmarker", "operations" do
+  before(:each) do
+    @bmk = Cdb::Bookmarker.new
+  end
   it "should make new database file if not exists"
   it "should create bookmark" do
     #bmk = Bookmarker.new
@@ -10,16 +13,14 @@ describe "Bookmarker", "operations" do
   it "should delete bookmark"
   it "should throw an exception if you did not specify a bookmark to delete"
   it "should list bookmark satisfying regex" do
-    bmk = Cdb::Bookmarker.new
-    bookmarks= bmk.list_bookmarks
+    bookmarks = @bmk.list_bookmarks
     bookmarks.each do |bookmark|
       bookmark.split(":").first.should match /\S+/
       bookmark.split(":").last.should match /\S+/
     end
   end
   it "should show simple help document" do
-    bmk = Cdb::Bookmarker.new
-    bmk.show_help_msg.should == <<-END_OF_MSG
+    @bmk.show_help_msg.should == <<-END_OF_MSG
 Usage: cdb [-c|-g|-d|-l] [bookmark]
 -c: create bookmark
 -g: goto bookmark
