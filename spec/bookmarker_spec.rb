@@ -10,7 +10,10 @@ describe "Bookmarker", "operations" do
     @bmk.add_bookmark("test", "/Users/sehun/test")
     @bmk.list_bookmarks.should include("test:/Users/sehun/test")
   end
-  it "should throw an exception if a bookmark to create is already created"
+  it "should throw an exception if a bookmark to create is already created" do
+    @bmk.add_bookmark("test", "/Users/sehun/test")
+    lambda { @bmk.add_bookmark("test", "/Users/sehun/test") }.should raise_error(ArgumentError)
+  end
   it "should delete bookmark"
   it "should throw an exception if you did not specify a bookmark to delete"
   it "should list bookmark satisfying regex" do
