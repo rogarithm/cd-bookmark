@@ -13,6 +13,8 @@ module Cdb
       case @option
       when "-h"
         puts @bookmarker.show_help_msg
+      when "-l"
+        puts @bookmarker.list_bookmarks
       end
     end
   end
