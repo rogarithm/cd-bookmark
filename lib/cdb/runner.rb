@@ -10,10 +10,10 @@ module Cdb
     end
 
     def run
-      puts @option
-      #case @option
-      #when "-h"
-      #  @bookmarker.show_help_msg
+      case @option
+      when "-h"
+        puts @bookmarker.show_help_msg
+      end
     end
   end
 end
