@@ -1,7 +1,13 @@
 module Cdb
   class Bookmarker
+    attr_accessor :bookmark_db
+
     def initialize
       @bookmark_db="/Users/sehun/tools/cdb/.cd_bookmarks"
+    end
+
+    def add_bookmark(name, path)
+      File.open(@bookmark_db, "a") {|f| f.puts("#{name}:#{path}\n")}
     end
 
     def show_help_msg

@@ -3,11 +3,12 @@ require_relative '../lib/cdb/bookmarker'
 describe "Bookmarker", "operations" do
   before(:each) do
     @bmk = Cdb::Bookmarker.new
+    @bmk.bookmark_db = "/Users/sehun/tools/cdb/.test_cd_bookmarks"
   end
   it "should make new database file if not exists"
   it "should create bookmark" do
-    #bmk = Bookmarker.new
-    #bmk.create('test_bookmark')
+    @bmk.add_bookmark("test", "/Users/sehun/test")
+    @bmk.list_bookmarks.should include("test:/Users/sehun/test")
   end
   it "should throw an exception if a bookmark to create is already created"
   it "should delete bookmark"
