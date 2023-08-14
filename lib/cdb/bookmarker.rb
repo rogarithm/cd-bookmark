@@ -7,7 +7,9 @@ module Cdb
     end
 
     def add_bookmark(name, path)
-      File.open(@bookmark_db, "a") {|f| f.puts("#{name}:#{path}\n")}
+      file = File.open(@bookmark_db, "a")
+      file.puts("#{name}:#{path}\n")
+      file.close
     end
 
     def show_help_msg
