@@ -24,7 +24,7 @@ Usage: cdb [-c|-g|-d|-l] [bookmark]
 -c: create bookmark
 -g: goto bookmark
 -d: delete bookmark
--l: list bookmarks'
+-l: list bookmarks
     END_OF_MSG
   end
   it "should go to directory of given bookmark"
