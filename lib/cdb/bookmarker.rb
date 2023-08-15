@@ -7,7 +7,7 @@ module Cdb
     end
 
     def add_bookmark(name, path)
-      if duplicate?(name) == true
+      if exists?(name) == true
         raise ArgumentError, "Failed to add #{path} as #{name}: #{$!}"
       end
       file = File.open(@bookmark_db, "a")
@@ -15,7 +15,7 @@ module Cdb
       file.close
     end
 
-    def duplicate?(name)
+    def exists?(name)
       matching = self.list_bookmarks.grep(/^#{name}:/)
       matching.count >= 1
     end
