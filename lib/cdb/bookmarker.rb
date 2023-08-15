@@ -20,6 +20,12 @@ module Cdb
       matching.count >= 1
     end
 
+    def remove_bookmark(name)
+      if name.nil? or name.empty?
+        raise ArgumentError, "Failed to delete bookmark. Please specify value for name parameter: #{$!}"
+      end
+    end
+
     def show_help_msg
       msg = <<-END_OF_MSG
 Usage: cdb [-c|-g|-d|-l] [bookmark]

@@ -20,7 +20,10 @@ describe "Bookmarker", "operations" do
     lambda { @bmk.add_bookmark("test", "/Users/sehun/test") }.should raise_error(ArgumentError)
   end
   it "should delete bookmark"
-  it "should throw an exception if you did not specify a bookmark to delete"
+  it "should throw an exception if name was not given" do
+    lambda { @bmk.remove_bookmark('') }.should raise_error(ArgumentError)
+    lambda { @bmk.remove_bookmark() }.should raise_error(ArgumentError)
+  end
   it "should list bookmark satisfying regex" do
     bookmarks = @bmk.list_bookmarks
     bookmarks.each do |bookmark|
