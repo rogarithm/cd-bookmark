@@ -24,6 +24,9 @@ describe "Bookmarker", "operations" do
     lambda { @bmk.remove_bookmark('') }.should raise_error(ArgumentError)
     lambda { @bmk.remove_bookmark() }.should raise_error(ArgumentError)
   end
+  it "should throw an exception if there's no registered bookmark for given name" do
+    lambda { @bmk.remove_bookmark('unregistered') }.should raise_error(ArgumentError)
+  end
   it "should list bookmark satisfying regex" do
     bookmarks = @bmk.list_bookmarks
     bookmarks.each do |bookmark|

@@ -24,6 +24,10 @@ module Cdb
       if name.nil? or name.empty?
         raise ArgumentError, "Failed to delete bookmark. Please specify value for name parameter: #{$!}"
       end
+
+      if exists?(name) == false
+        raise ArgumentError, "Failed to delete bookmark. Couldn't find bookmark for given name: #{$!}"
+      end
     end
 
     def show_help_msg
