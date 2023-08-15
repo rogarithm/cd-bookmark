@@ -10,7 +10,9 @@ describe "Bookmarker", "operations" do
     File.open(@bmk.bookmark_db, 'w') {|file| file.truncate(0) }
   end
 
-  it "should make new database file if not exists"
+  it "should make new database file if not exists" do
+    lambda { @bmk = Cdb::Bookmarker.new("/Users/sehun/tools/cdb/.db_not_created") }.should raise_error(ArgumentError)
+  end
   it "should create bookmark" do
     @bmk.add_bookmark("test", "/Users/sehun/test")
     @bmk.list_bookmarks.should include("test:/Users/sehun/test")

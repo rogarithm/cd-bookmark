@@ -2,8 +2,11 @@ module Cdb
   class Bookmarker
     attr_accessor :bookmark_db
 
-    def initialize
-      @bookmark_db="/Users/sehun/tools/cdb/.cd_bookmarks"
+    def initialize(db = "/Users/sehun/tools/cdb/.cd_bookmarks")
+      @bookmark_db=db
+      if File.file?(@bookmark_db) == false
+        raise ArgumentError, "Failed to initialize. Please check the file for given path and name(#{@bookmark_db}) created: #{$!}"
+      end
     end
 
     def add_bookmark(name, path)
