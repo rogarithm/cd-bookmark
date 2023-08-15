@@ -5,12 +5,12 @@ module Cdb
     attr_reader :option, :bookmarker
 
     def initialize(argv)
-      @option = argv[0]
+      @option = argv
       @bookmarker = Bookmarker.new
     end
 
     def run
-      case @option
+      case @option.first
       when "-h"
         puts @bookmarker.show_help_msg
       when "-l"
