@@ -17,7 +17,7 @@ module Cdb
 
     def exists?(name)
       matching = self.list_bookmarks.grep(/^#{name}:/)
-      matching.count >= 1
+      matching.count == 1
     end
 
     def remove_bookmark(name)
