@@ -19,7 +19,13 @@ describe "Bookmarker", "operations" do
     @bmk.add_bookmark("test", "/Users/sehun/test")
     lambda { @bmk.add_bookmark("test", "/Users/sehun/test") }.should raise_error(ArgumentError)
   end
-  it "should delete bookmark"
+  it "should delete bookmark" do
+    @bmk.add_bookmark("a", "/Users/sehun/a")
+    @bmk.add_bookmark("b", "/Users/sehun/b")
+    @bmk.add_bookmark("c", "/Users/sehun/c")
+    @bmk.remove_bookmark("a")
+    @bmk.exists?("a").should == false
+  end
   it "should throw an exception if name was not given" do
     lambda { @bmk.remove_bookmark('') }.should raise_error(ArgumentError)
     lambda { @bmk.remove_bookmark() }.should raise_error(ArgumentError)

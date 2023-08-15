@@ -28,6 +28,13 @@ module Cdb
       if exists?(name) == false
         raise ArgumentError, "Failed to delete bookmark. Couldn't find bookmark for given name: #{$!}"
       end
+
+      open('tmp', 'w') do |tmp|
+        File.open(@bookmark_db).each do |line|
+          tmp << line unless line =~ /^#{name}:.*/
+        end
+      end
+      File.rename('tmp', @bookmark_db)
     end
 
     def show_help_msg
