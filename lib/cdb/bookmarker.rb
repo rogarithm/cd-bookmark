@@ -40,6 +40,19 @@ module Cdb
       File.rename('tmp', @bookmark_db)
     end
 
+    def find_path(name)
+      if name.nil? or name.empty?
+        raise ArgumentError, "Failed to find path for given bookmark name. Please specify value for name parameter: #{$!}"
+      end
+
+      if exists?(name) == false
+        raise ArgumentError, "Failed to find path for given bookmark name. Couldn't find bookmark for given name (#{name}): #{$!}"
+      end
+
+      match = self.list_bookmarks.grep(/^#{name}:/)
+      match.first.sub(/^.*:/, "")
+    end
+
     def show_help_msg
       msg = <<-END_OF_MSG
 Usage: cdb [-c|-g|-d|-l] [bookmark]

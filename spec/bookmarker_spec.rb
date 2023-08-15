@@ -51,6 +51,16 @@ Usage: cdb [-c|-g|-d|-l] [bookmark]
 -l: list bookmarks
     END_OF_MSG
   end
-  it "should go to directory of given bookmark"
-  it "should throw an exception if given bookmark you want to go doesn't exist"
+  it "should return path of given bookmark" do
+    @bmk.add_bookmark("a", "/Users/sehun/a")
+    @bmk.add_bookmark("b", "/Users/sehun/b")
+    @bmk.add_bookmark("c", "/Users/sehun/c")
+    @bmk.find_path("a").should == "/Users/sehun/a"
+  end
+  it "should throw an exception if name was not given" do
+    lambda { @bmk.find_path() }.should raise_error(ArgumentError)
+  end
+  it "should throw an exception if given bookmark you want to go doesn't exist" do
+    lambda { @bmk.find_path('a') }.should raise_error(ArgumentError)
+  end
 end
