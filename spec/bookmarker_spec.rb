@@ -5,6 +5,11 @@ describe "Bookmarker", "operations" do
     @bmk = Cdb::Bookmarker.new
     @bmk.bookmark_db = "/Users/sehun/tools/cdb/.test_cd_bookmarks"
   end
+
+  after(:each) do
+    File.open(@bmk.bookmark_db, 'w') {|file| file.truncate(0) }
+  end
+
   it "should make new database file if not exists"
   it "should create bookmark" do
     @bmk.add_bookmark("test", "/Users/sehun/test")
